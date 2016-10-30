@@ -26,6 +26,10 @@ public class NAPChatServer {
 		networkClasses.add(NAPChatMessage.class);
 		networkClasses.add(NAPRegisterUpdate.class);
 		networkClasses.add(NAPClientUpdate.class);
+
+		for (Class networkClass : networkClasses) {
+			server.getKryo().register(networkClass);
+		}
 	}
 
 	private void addReceivingListener(Listener listener) {
@@ -38,9 +42,15 @@ public class NAPChatServer {
 
 	public void start() {
 		server.start();
+		isRunning = true;
 	}
 
 	public void stop() {
 		server.stop();
+		isRunning = false;
+	}
+
+	public boolean isRunning() {
+		return isRunning;
 	}
 }

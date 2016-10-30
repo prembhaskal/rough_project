@@ -1,6 +1,5 @@
 package com.kryo.chat;
 
-import java.util.Collections;
 import java.util.concurrent.BlockingQueue;
 
 public class NAPServerExecutor implements Runnable {
@@ -37,7 +36,7 @@ public class NAPServerExecutor implements Runnable {
 		Update update = event.getUpdate();
 
 		if (update instanceof NAPRegisterUpdate) {
-			System.out.println("new connection received.");
+			System.out.println("new NAP Register update received : " + ((NAPRegisterUpdate) update).getClientName());
 			napNetworkConnection.setConnectionName(((NAPRegisterUpdate) update).getClientName());
 			updater.updateNewConnection(napNetworkConnection, (NAPRegisterUpdate) update);
 
@@ -49,7 +48,8 @@ public class NAPServerExecutor implements Runnable {
 			System.out.println("chat received from " + napNetworkConnection.getConnectionName());
 			NAPChatMessage napChatMessage = (NAPChatMessage) update;
 
-			updater.sendUpdate(napChatMessage, napChatMessage.getSendTo());
+//			updater.sendUpdate(napChatMessage, napChatMessage.getRecipient());
+			updater.broadCastUpdate(napChatMessage);
 		}
 	}
 }

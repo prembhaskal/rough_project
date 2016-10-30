@@ -4,6 +4,8 @@ public class NAPClientUpdate implements Update {
 
 	private String[] connectedClients;
 
+	private NAPClientUpdate(){};
+
 	public NAPClientUpdate(String[] connectedClients) {
 		this.connectedClients = connectedClients;
 	}

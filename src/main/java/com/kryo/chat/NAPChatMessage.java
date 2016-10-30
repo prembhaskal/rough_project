@@ -3,18 +3,26 @@ package com.kryo.chat;
 public class NAPChatMessage implements Update {
 
 	private String chatMessage;
-	private final String sendTo;
+	private String sender;
+	private String recipient;
 
-	public NAPChatMessage(String chatMessage, String sendTo) {
+	private NAPChatMessage(){}
+
+	public NAPChatMessage(String chatMessage, String sender, String recipient) {
 		this.chatMessage = chatMessage;
-		this.sendTo = sendTo;
+		this.sender = sender;
+		this.recipient = recipient;
 	}
 
 	public String getChatMessage() {
 		return chatMessage;
 	}
 
-	public String getSendTo() {
-		return sendTo;
+	public String getSender() {
+		return sender;
+	}
+
+	public String getRecipient() {
+		return recipient;
 	}
 }

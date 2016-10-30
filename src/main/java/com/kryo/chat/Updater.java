@@ -28,7 +28,7 @@ public class Updater {
 	public void sendUpdate(Update update, String connectionName) {
 		NAPNetworkConnection napNetworkConnection = connectionMap.get(connectionName);
 		if (napNetworkConnection == null) {
-			throw new IllegalStateException("No such connection connected");
+			throw new IllegalStateException("No such connection connected " + connectionName);
 		}
 
 		napNetworkConnection.sendTCP(update);

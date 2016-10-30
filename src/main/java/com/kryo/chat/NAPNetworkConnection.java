@@ -13,4 +13,9 @@ public class NAPNetworkConnection extends Connection {
 	public void setConnectionName(String connectionName) {
 		this.connectionName = connectionName;
 	}
+
+	@Override
+	public String toString() {
+		return super.toString() + " -- " + connectionName;
+	}
 }

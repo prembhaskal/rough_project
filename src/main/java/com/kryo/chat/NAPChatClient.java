@@ -38,6 +38,10 @@ public class NAPChatClient {
 		networkClasses.add(NAPChatMessage.class);
 		networkClasses.add(NAPRegisterUpdate.class);
 		networkClasses.add(NAPClientUpdate.class);
+		for (Class networkClass : networkClasses) {
+			client.getKryo().register(networkClass);
+		}
+
 	}
 
 	public void connect(String serverAddress, int serverPort) throws IOException {
@@ -63,8 +67,12 @@ public class NAPChatClient {
 		state = ClientState.DISCONNECTED;
 	}
 
-	public void sendChatMessage(String chatMessage, String sendTo) {
-		client.sendTCP(new NAPChatMessage(chatMessage, sendTo));
+	public void sendTCPCommand(Object object) {
+		client.sendTCP(object);
+	}
+
+	public void sendChatMessage(String chatMessage, String sender, String recipient) {
+		sendTCPCommand(new NAPChatMessage(chatMessage, sender, recipient));
 	}
 
 	public ClientState getState() {

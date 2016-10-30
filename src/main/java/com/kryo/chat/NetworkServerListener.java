@@ -16,9 +16,12 @@ public class NetworkServerListener extends Listener {
 	public void received(Connection connection, Object object) {
 		if (! (object instanceof Update)) {
 			System.out.println("unknown object received: " + object);
+			super.received(connection, object);
+			return;
 		}
 
 		try {
+			System.out.println("received object : " + object + " from: " + connection);
 			Event event = new Event((NAPNetworkConnection)connection, (Update)object);
 			updateQueue.put(event);
 		}
@@ -28,7 +31,14 @@ public class NetworkServerListener extends Listener {
 	}
 
 	@Override
+	public void connected(Connection connection) {
+		System.out.println("received a connection : " + connection);
+		super.connected(connection);
+	}
+
+	@Override
 	public void disconnected(Connection connection) {
+		System.out.println("disconnected client: " + connection);
 		try {
 			DisconnectionEvent disconnectionEvent = new DisconnectionEvent((NAPNetworkConnection) connection);
 			updateQueue.put(disconnectionEvent);

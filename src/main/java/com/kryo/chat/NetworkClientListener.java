@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class NetworkClientListener extends Listener {
 	private NAPListener chatListener;
 	private NAPListener clientUpdateListener;
+	private NAPListener connectedListener;
 
 	private Executor executor;
 
@@ -27,9 +28,12 @@ public class NetworkClientListener extends Listener {
 		this.chatListener = chatListener;
 	}
 
-
 	public void setClientUpdateListener(NAPListener clientUpdateListener) {
 		this.clientUpdateListener = clientUpdateListener;
+	}
+
+	public void setConnectedListener(NAPConnectedListener connectedListener) {
+		this.connectedListener = connectedListener;
 	}
 
 	@Override
@@ -52,6 +56,7 @@ public class NetworkClientListener extends Listener {
 	@Override
 	public void connected(Connection connection) {
 		System.out.println("client connected to server");
+		connectedListener.receiveUpdate(null);
 	}
 
 	@Override
