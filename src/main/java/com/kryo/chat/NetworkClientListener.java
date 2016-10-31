@@ -3,10 +3,7 @@ package com.kryo.chat;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -56,7 +53,7 @@ public class NetworkClientListener extends Listener {
 
 	@Override
 	public void connected(Connection connection) {
-		System.out.println("client connected to server");
+		System.out.println("client connected to server with client name: " + clientName);
 		napChatClient.sendTCPCommand(new NAPRegisterUpdate(clientName));
 	}
 
