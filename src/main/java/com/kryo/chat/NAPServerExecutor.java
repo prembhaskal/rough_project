@@ -48,7 +48,6 @@ public class NAPServerExecutor implements Runnable {
 			System.out.println("chat received from " + napNetworkConnection.getConnectionName());
 			NAPChatMessage napChatMessage = (NAPChatMessage) update;
 
-//			updater.sendUpdate(napChatMessage, napChatMessage.getRecipient());
 			updater.broadCastUpdate(napChatMessage);
 		}
 	}

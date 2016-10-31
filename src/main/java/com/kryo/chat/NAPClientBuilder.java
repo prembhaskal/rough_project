@@ -5,82 +5,29 @@ import com.esotericsoftware.kryonet.Client;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.Random;
 
 public class NAPClientBuilder {
 
-	private final String serverAddress;
-	private final int serverPort;
-
-	private final NetworkClientListener networkClientListener;
-	private NAPChatClient napChatClient;
-
-	public NAPClientBuilder(String serverAddress, int serverPort) {
-		this.serverAddress = serverAddress;
-		this.serverPort = serverPort;
-		networkClientListener = new NetworkClientListener();
+	public NAPClientBuilder() {
 	}
 
-	public void setChatListener(NAPListener napListener) {
-		networkClientListener.setChatListener(napListener);
-	}
-
-	public void setClientUpdateListener(NAPListener napListener) {
-		networkClientListener.setClientUpdateListener(napListener);
-	}
-
-	public void setConnectedListener(NAPConnectedListener napConnectedListener) {
-		networkClientListener.setConnectedListener(napConnectedListener);
-	}
-
-
-	public NAPChatClient buildClient() throws IOException {
-		Client client = new Client();
-		napChatClient = new NAPChatClient(client, networkClientListener);
-		return napChatClient;
-	}
-
-	public void startClient() throws IOException {
-		napChatClient.connect(serverAddress, serverPort);
-	}
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 		createClientUI();
 //		testClientConnetion();
 	}
 
-	private static NAPChatClient testClientConnection(String connectionName) throws IOException, InterruptedException {
-		NAPClientBuilder napClientBuilder = new NAPClientBuilder("localhost", 9013);
-		napClientBuilder.setChatListener(new NAPChatListener());
-		napClientBuilder.setClientUpdateListener(new NAPClientUpdateListener());
+	private static NAPChatClient setUPClient(String connectionName) throws IOException, InterruptedException {
+		Client client = new Client();
+		NAPChatClient napChatClient = new NAPChatClient(client);
+		NetworkClientListener networkClientListener = new NetworkClientListener(napChatClient, connectionName);
+		networkClientListener.setChatListener(new NAPChatListener());
+		networkClientListener.setClientUpdateListener(new NAPClientUpdateListener());
 
-		NAPChatClient napChatClient;
-		try {
-			napChatClient = napClientBuilder.buildClient();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw e;
-		}
-
-		napClientBuilder.setConnectedListener(new NAPConnectedListener(napChatClient, connectionName));
-
-		napClientBuilder.startClient();
+		napChatClient.addReceivingListener(networkClientListener);
+		napChatClient.connect("localhost", 9013);
 
 		return napChatClient;
-//
-//		// wait for init
-//		Thread.sleep(10000);
-//
-//		// send registration update
-//		Random random = new Random();
-//		int i = random.nextInt(10) + 1;
-//		napChatClient.sendTCPCommand(new NAPRegisterUpdate("test" + i));
-//
-//		try {
-//			new CountDownLatch(1).await();
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
 	}
 
 	public static void createClientUI() {
@@ -125,7 +72,7 @@ public class NAPClientBuilder {
 				int port = Integer.parseInt(portField.getText());
 
 				try {
-					napChatClient = testClientConnection(connectionName);
+					napChatClient = setUPClient(connectionName);
 				}
 				catch (Exception e1) {
 					e1.printStackTrace();

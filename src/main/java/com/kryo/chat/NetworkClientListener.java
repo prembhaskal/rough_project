@@ -12,13 +12,17 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class NetworkClientListener extends Listener {
+	private final NAPChatClient napChatClient;
+	private final String clientName;
 	private NAPListener chatListener;
 	private NAPListener clientUpdateListener;
-	private NAPListener connectedListener;
 
-	private Executor executor;
+	private final Executor executor;
 
-	public NetworkClientListener() {
+	public NetworkClientListener(NAPChatClient napChatClient, String clientName) {
+		this.napChatClient = napChatClient;
+		this.clientName = clientName;
+
 		executor = new ThreadPoolExecutor(1, 1,
 				0L, TimeUnit.MILLISECONDS,
 				new LinkedBlockingQueue<>(100));
@@ -32,9 +36,6 @@ public class NetworkClientListener extends Listener {
 		this.clientUpdateListener = clientUpdateListener;
 	}
 
-	public void setConnectedListener(NAPConnectedListener connectedListener) {
-		this.connectedListener = connectedListener;
-	}
 
 	@Override
 	public void received(Connection connection, Object object) {
@@ -56,7 +57,7 @@ public class NetworkClientListener extends Listener {
 	@Override
 	public void connected(Connection connection) {
 		System.out.println("client connected to server");
-		connectedListener.receiveUpdate(null);
+		napChatClient.sendTCPCommand(new NAPRegisterUpdate(clientName));
 	}
 
 	@Override

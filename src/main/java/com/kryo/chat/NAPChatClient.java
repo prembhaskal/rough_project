@@ -21,13 +21,12 @@ public class NAPChatClient {
 		DISCONNECTED
 	}
 
-	public NAPChatClient(Client client, Listener listener) {
+	public NAPChatClient(Client client) {
 		this.client = client;
-		addReceivingListener(listener);
 		initNetwork();
 	}
 
-	private void addReceivingListener(Listener listener) {
+	public void addReceivingListener(Listener listener) {
 		client.addListener(listener);
 	}
 
