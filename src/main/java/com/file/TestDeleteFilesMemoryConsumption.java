@@ -192,10 +192,8 @@ public class TestDeleteFilesMemoryConsumption {
 		thresholdDay.set(Calendar.MILLISECOND, 0);
 
 		System.out.println("Threshold day is " + thresholdDay.getTime());
-//		System.out.println("compared with date is " + simpleDateFormat.format(rightNow.getTime()));
 
 		Date directoryDate = simpleDateFormat.parse(directoryName);
-//		System.out.println("directory date is " + directoryDate);
 
 		// don't scan anything equal or after the threshold day.
 		return directoryDate.before(thresholdDay.getTime());
