@@ -58,11 +58,14 @@ public class Solution3 {
 
 			// get all neighbours;
 			List<Integer> neighbours = adjList[city];
+			int newDistance = currentDist + 1;
+
+			// update all neighbours.
 			for (Integer neighbourCity : neighbours) {
 				if (!visited[neighbourCity]) {
 					visited[neighbourCity] = true;
 					queue.add(neighbourCity);
-					distArray[neighbourCity] = currentDist + 1;
+					distArray[neighbourCity] = newDistance;
 				}
 			}
 		}
