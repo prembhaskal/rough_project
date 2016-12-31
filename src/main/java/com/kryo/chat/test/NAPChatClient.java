@@ -1,4 +1,4 @@
-package com.kryo.chat;
+package com.kryo.chat.test;
 
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Listener;

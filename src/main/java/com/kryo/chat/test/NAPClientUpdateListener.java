@@ -1,4 +1,4 @@
-package com.kryo.chat;
+package com.kryo.chat.test;
 
 import java.util.Arrays;
 

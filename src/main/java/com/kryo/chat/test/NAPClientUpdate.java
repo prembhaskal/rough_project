@@ -1,4 +1,4 @@
-package com.kryo.chat;
+package com.kryo.chat.test;
 
 public class NAPClientUpdate implements Update {
 
