@@ -12,27 +12,32 @@
         <finalName>demo</finalName>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jaxb2-maven-plugin</artifactId>
-                <version>2.3.1</version>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-xjc-plugin</artifactId>
+                <version>2.3.0</version>
+                <configuration>
+                    <extensions>
+                        <extension>org.apache.cxf.xjcplugins:cxf-xjc-dv:2.3.0</extension>
+                    </extensions>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>xjc</id>
+                        <id>generate-sources</id>
+                        <phase>generate-sources</phase>
                         <goals>
-                            <goal>xjc</goal>
+                            <goal>xsdtojava</goal>
                         </goals>
+                        <configuration>
+                            <sourceRoot>${basedir}/src/main/java</sourceRoot>
+                            <xsdOptions>
+                                <xsdOption>
+                                    <xsd>src/main/resources/koala.xsd</xsd> <!--shares a common.xsd file causing the conflicts-->
+                                    <packagename>com.xml.koala.model</packagename>
+                                </xsdOption>
+                            </xsdOptions>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <outputDirectory>src/main/java/com/xml/koala/model</outputDirectory>
-                    <sources>
-                        <source>src/main/resources/koala.xsd</source>
-                    </sources>
-                </configuration>
             </plugin>
         </plugins>
     </build>
