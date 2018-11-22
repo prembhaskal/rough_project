@@ -7,7 +7,36 @@
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>rough-project</name>
-  
+
+    <build>
+        <finalName>demo</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>2.3.1</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <outputDirectory>src/main/java/com/xml/koala/model</outputDirectory>
+                    <sources>
+                        <source>src/main/resources/koala.xsd</source>
+                    </sources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

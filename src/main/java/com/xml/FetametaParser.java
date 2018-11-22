@@ -8,6 +8,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Stack;
 
 public class FetametaParser {
 
@@ -33,12 +36,23 @@ public class FetametaParser {
         private String measRBFolderName;
         private String measDescription;
 
+        private String mTimeFirstLvl;
+        private String mTimeLastLvl;
+
+        private String mTopFirstRef;
+        private String mTopLastRef;
+        private String mTopRawRef;
+
+
         private String cntDescription;
         private StringBuilder descBuilder = new StringBuilder();
 
         private boolean isMeasurement = false;
         private boolean isCounter = false;
         private boolean isDescription = false;
+        private boolean isTime = false;
+
+        private Deque<String> stack = new ArrayDeque<>();
 
 
         private int tagCounter = 0;
@@ -53,23 +67,55 @@ public class FetametaParser {
                 tagCounter++;
                 switch (qName) {
                     case "Measurement":
-                        isMeasurement = true;
                         captureMeasurementAttributes(attr);
                         break;
-
-                    case "Description":
-                        isDescription = true;
-                        break;
-
-                    case "Counter":
-                        isCounter = true;
-                        break;
-
                     default:
                         break;
                 }
+
+                stack.push(qName);
             }
         }
+
+        private boolean isInsideTag(String tagName) {
+            return stack.contains(tagName);
+        }
+
+        private boolean isMeasurement() {
+            return isInsideTag("Measurement");
+        }
+
+        private boolean isCounter() {
+            return isInsideTag("Counter");
+        }
+
+        private boolean isDescription() {
+            return isInsideTag("Description");
+        }
+
+        private boolean isTime() {
+            return isInsideTag("Time");
+        }
+        private boolean isRawLevel() {
+            return isInsideTag("RawLevel");
+        }
+        private boolean isFirstLevel() {
+            return isInsideTag("FirstLevel");
+        }
+        private boolean isLastLevel() {
+            return isInsideTag("LastLevel");
+        }
+
+        private boolean isRawLevelRef() {
+            return isInsideTag("RawLevelRef");
+        }
+        private boolean isFirstLevelRef() {
+            return isInsideTag("FirstLevelRef");
+        }
+        private boolean isLastLevelRef() {
+            return isInsideTag("LastLevelRef");
+        }
+
 
         private void collectDescription(String description) {
             descBuilder.append(description);
@@ -78,8 +124,8 @@ public class FetametaParser {
         private void captureDescription() {
             String currentDescription = descBuilder.toString().trim();
 
-            if (isMeasurement) {
-                if (isCounter) {
+            if (isMeasurement()) {
+                if (isCounter()) {
                     cntDescription = currentDescription;
                     System.out.println("counter description  -- " + cntDescription);
                 }
@@ -96,7 +142,6 @@ public class FetametaParser {
         }
 
         private void captureMeasurementAttributes(Attributes attr) {
-            isMeasurement = true;
             measID = attr.getValue("ID");
             measOmesName = attr.getValue("OMeSName");
             measNeName = attr.getValue("NEName");
@@ -106,39 +151,29 @@ public class FetametaParser {
 
         @Override
         public void characters(char[] ch, int start, int length) throws SAXException {
-
-//            if (!isInsideCommand)
-//                return;
-
-            if (isDescription) {
+            if (isDescription()) {
                 String description = new String(ch, start, length);
 //                System.out.println(String.format("%d -- %s", tagCounter, description));
                 collectDescription(description);
             }
-//            printWriter.print(commandValue);
+            else if (isTime) {
+
+            }
+
         }
 
         @Override
         public void endElement(String uri, String localName, String qName) throws SAXException {
             if (qName != null) {
                 switch (qName) {
-                    case "Measurement":
-                        isMeasurement = false;
-                        break;
-
-                    case "Counter":
-                        isCounter = false;
-                        break;
-
                     case "Description":
                         captureDescription();
-                        isDescription = false;
                         break;
-
                     default:
                         break;
-
                 }
+
+                String tag = stack.pop();
             }
         }
     }

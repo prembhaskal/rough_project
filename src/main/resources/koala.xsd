@@ -1,0 +1,211 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Adaptation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Release">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="Vendor"/>
+              <xs:element type="xs:string" name="Element"/>
+              <xs:element type="xs:string" name="Version"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Topology">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Level">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ObjectClassDefinition">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:short" name="IntClassID"/>
+                            <xs:attribute type="xs:string" name="IsNE"/>
+                            <xs:attribute type="xs:string" name="Name"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Key">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="ID"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Level" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Key">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:string" name="ID" use="optional"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="ObjectClassDefinition">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:short" name="IntClassID" use="optional"/>
+                                  <xs:attribute type="xs:string" name="IsNE" use="optional"/>
+                                  <xs:attribute type="xs:string" name="Name" use="optional"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Level" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Key">
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="xs:string">
+                                        <xs:attribute type="xs:string" name="ID" use="optional"/>
+                                      </xs:extension>
+                                    </xs:simpleContent>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute type="xs:string" name="ID" use="optional"/>
+                              <xs:attribute type="xs:byte" name="ObjectNumber" use="optional"/>
+                              <xs:attribute type="xs:string" name="Aggregation" use="optional"/>
+                              <xs:attribute type="xs:string" name="RBName" use="optional"/>
+                              <xs:attribute type="xs:string" name="OMeSame" use="optional"/>
+                              <xs:attribute type="xs:string" name="IsTransient" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="LevelRef" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:string" name="ID" use="optional"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="ID" use="optional"/>
+                        <xs:attribute type="xs:short" name="ObjectNumber" use="optional"/>
+                        <xs:attribute type="xs:string" name="Aggregation" use="optional"/>
+                        <xs:attribute type="xs:string" name="RBName" use="optional"/>
+                        <xs:attribute type="xs:string" name="OMeSName" use="optional"/>
+                        <xs:attribute type="xs:string" name="ExternalID" use="optional"/>
+                        <xs:attribute type="xs:string" name="IsTransient" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="ID"/>
+                  <xs:attribute type="xs:byte" name="ObjectNumber"/>
+                  <xs:attribute type="xs:string" name="Aggregation"/>
+                  <xs:attribute type="xs:string" name="RBName"/>
+                  <xs:attribute type="xs:string" name="OMeSame"/>
+                  <xs:attribute type="xs:string" name="IsTransient"/>
+                  <xs:attribute type="xs:string" name="HasServicesSupport"/>
+                  <xs:attribute type="xs:string" name="IsMeasuringElement"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="ID"/>
+            <xs:attribute type="xs:string" name="Path"/>
+            <xs:attribute type="xs:string" name="Dimension"/>
+            <xs:attribute type="xs:string" name="ExtraHierarchies"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Storing">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:byte" name="Raw"/>
+              <xs:element type="xs:byte" name="Hour"/>
+              <xs:element type="xs:short" name="Day"/>
+              <xs:element type="xs:short" name="Week"/>
+              <xs:element type="xs:short" name="Month"/>
+              <xs:element type="xs:short" name="DayBH"/>
+              <xs:element type="xs:short" name="WeekBH"/>
+              <xs:element type="xs:short" name="MonthBH"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Measurement" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="Description"/>
+              <xs:element name="Time">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:byte" name="RawLevel"/>
+                    <xs:element type="xs:string" name="FirstLevel"/>
+                    <xs:element type="xs:string" name="LastLevel"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="TopologyRef">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="RawLevelRef"/>
+                    <xs:element type="xs:string" name="FirstLevelRef"/>
+                    <xs:element type="xs:string" name="LastLevelRef"/>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="ID" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PhysicalCounters">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Counter" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="TimeRawFormula"/>
+                          <xs:element type="xs:string" name="ObjRawFormula"/>
+                          <xs:element type="xs:string" name="Unit"/>
+                          <xs:element type="xs:string" name="Description"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="ID" use="optional"/>
+                        <xs:attribute type="xs:string" name="OMeSName" use="optional"/>
+                        <xs:attribute type="xs:string" name="NEName" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="LogicalCounters">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Counter">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="Unit"/>
+                          <xs:element type="xs:string" name="TimeRawFormula"/>
+                          <xs:element type="xs:string" name="TimeSumFormula"/>
+                          <xs:element type="xs:string" name="ObjRawFormula"/>
+                          <xs:element type="xs:string" name="ObjectSumFormula"/>
+                          <xs:element type="xs:string" name="Description"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="ID" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="ID" use="optional"/>
+            <xs:attribute type="xs:string" name="OMeSName" use="optional"/>
+            <xs:attribute type="xs:string" name="NEName" use="optional"/>
+            <xs:attribute type="xs:string" name="RBFolderName" use="optional"/>
+            <xs:attribute type="xs:string" name="Aggregation" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="ID"/>
+      <xs:attribute type="xs:string" name="RepProcessID"/>
+      <xs:attribute type="xs:string" name="DNMappingStrategy"/>
+      <xs:attribute type="xs:string" name="RBFolderName"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
