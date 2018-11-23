@@ -1,3 +1,5 @@
 # ignore below stuff
 target/
 src/main/java/com/xml/koala/model/
+src/main/java/com/xml/feta/model/
+rough-project.iml

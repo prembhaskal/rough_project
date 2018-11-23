@@ -34,6 +34,10 @@
                                     <xsd>src/main/resources/koala.xsd</xsd> <!--shares a common.xsd file causing the conflicts-->
                                     <packagename>com.xml.koala.model</packagename>
                                 </xsdOption>
+                                <xsdOption>
+                                    <xsd>src/main/resources/feta.xsd</xsd> <!--shares a common.xsd file causing the conflicts-->
+                                    <packagename>com.xml.feta.model</packagename>
+                                </xsdOption>
                             </xsdOptions>
                         </configuration>
                     </execution>

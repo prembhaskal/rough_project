@@ -2,12 +2,11 @@ package com.xml;
 
 import com.xml.koala.model.Adaptation;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.UnmarshallerHandler;
+import javax.xml.bind.*;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.sax.SAXSource;
@@ -19,7 +18,12 @@ public class KoalaJaxbParser {
 
     // TODO -- use this instead https://stackoverflow.com/questions/8626153/make-jaxb-go-faster/8626388#8626388
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, JAXBException, ParserConfigurationException, SAXException {
+        Adaptation adaptation = parseKoala();
+        System.out.println("done");
+    }
+
+    private static Adaptation parseKoala() throws IOException, JAXBException, ParserConfigurationException, SAXException {
         JAXBContext jaxbContext = null;
         BufferedInputStream inputStream = null;
 
@@ -35,11 +39,10 @@ public class KoalaJaxbParser {
             SAXSource saxSource = new SAXSource(xmlReader, inputSource);
 
             JAXBElement<Adaptation> unmarshal = unmarshaller.unmarshal(saxSource, Adaptation.class);
-            Adaptation value = unmarshal.getValue();
-            System.out.println("done");
-
+            return unmarshal.getValue();
         } catch (Exception e) {
             e.printStackTrace();
+            throw e;
         }
         finally {
             if (inputStream != null) {
