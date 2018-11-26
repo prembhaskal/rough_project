@@ -2,4 +2,5 @@
 target/
 src/main/java/com/xml/koala/model/
 src/main/java/com/xml/feta/model/
+src/main/java/com/xml/pmmodel/model/
 rough-project.iml

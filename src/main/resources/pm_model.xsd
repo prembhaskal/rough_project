@@ -1,0 +1,107 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="Adaptation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Release">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:string" name="Vendor"/>
+                            <xs:element type="xs:string" name="Element"/>
+                            <xs:element type="xs:string" name="Version"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Measurement" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:string" name="Description"/>
+                            <xs:element name="Time">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:byte" name="RawLevel"/>
+                                        <xs:element type="xs:string" name="FirstLevel"/>
+                                        <xs:element type="xs:string" name="LastLevel"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="TopologyRef">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:string" name="RawLevelRef"/>
+                                        <xs:element type="xs:string" name="FirstLevelRef"/>
+                                        <xs:element type="xs:string" name="LastLevelRef"/>
+                                    </xs:sequence>
+                                    <xs:attribute type="xs:string" name="ID" use="optional"/>
+                                    <xs:attribute type="xs:string" name="SkipAggregation" use="optional"/>
+                                    <xs:attribute type="xs:string" name="TargetAggregation" use="optional"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="PhysicalCounters">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Counter" maxOccurs="unbounded" minOccurs="0">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:string" name="TimeRawFormula" minOccurs="0"/>
+                                                    <xs:element type="xs:string" name="ObjRawFormula" minOccurs="0"/>
+                                                    <xs:element type="xs:string" name="Description"/>
+                                                </xs:sequence>
+                                                <xs:attribute type="xs:string" name="ID" use="optional"/>
+                                                <xs:attribute type="xs:string" name="OMeSName" use="optional"/>
+                                                <xs:attribute type="xs:float" name="FirstNERelease" use="optional"/>
+                                                <xs:attribute type="xs:string" name="Unit" use="optional"/>
+                                                <xs:attribute type="xs:string" name="NEName" use="optional"/>
+                                                <xs:attribute type="xs:string" name="HideInSummary" use="optional"/>
+                                                <xs:attribute type="xs:string" name="ObjectID" use="optional"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="ID" use="optional"/>
+                        <xs:attribute type="xs:string" name="Aggregation" use="optional"/>
+                        <xs:attribute type="xs:string" name="RBFolderName" use="optional"/>
+                        <xs:attribute type="xs:string" name="OMeSName" use="optional"/>
+                        <xs:attribute type="xs:string" name="NEName" use="optional"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="AdditionalInfo">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:byte" name="EnablePRViewSupport"/>
+                            <xs:element type="xs:string" name="SubsystemName"/>
+                            <xs:element type="xs:string" name="DatabasePrefix"/>
+                            <xs:element type="xs:byte" name="OMeSVersion"/>
+                            <xs:element name="GeneratedParts">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                            <xs:attribute type="xs:string" name="RAW"/>
+                                            <xs:attribute type="xs:string" name="SUM"/>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="GIMMapping" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                            <xs:attribute type="xs:string" name="Path" use="optional"/>
+                                            <xs:attribute type="xs:string" name="Alias" use="optional"/>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="ID"/>
+            <xs:attribute type="xs:string" name="UMAProcessID"/>
+            <xs:attribute type="xs:string" name="RepProcessID"/>
+            <xs:attribute type="xs:string" name="DNMappingStrategy"/>
+            <xs:attribute type="xs:string" name="RBFolderName"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

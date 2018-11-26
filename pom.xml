@@ -38,6 +38,10 @@
                                     <xsd>src/main/resources/feta.xsd</xsd> <!--shares a common.xsd file causing the conflicts-->
                                     <packagename>com.xml.feta.model</packagename>
                                 </xsdOption>
+                                <xsdOption>
+                                    <xsd>src/main/resources/pm_model.xsd</xsd> <!--shares a common.xsd file causing the conflicts-->
+                                    <packagename>com.xml.pmmodel.model</packagename>
+                                </xsdOption>
                             </xsdOptions>
                         </configuration>
                     </execution>

@@ -1,7 +1,8 @@
 package com.xml;
 
 import com.xml.feta.model.*;
-import com.xml.koala.model.Adaptation;
+//import com.xml.koala.model.Adaptation;
+import com.xml.pmmodel.model.Adaptation;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -55,9 +56,9 @@ public class KoalaJaxbParser {
 
     private void run(String fileDirectory, String schemaPrefix, String koalaFilePath) throws IOException, JAXBException, ParserConfigurationException, SAXException {
         Adaptation adaptation = parseKoala(koalaFilePath);
-        System.out.println("done");
         List<com.xml.feta.model.Adaptation> adaptations = convertToFeta(adaptation, schemaPrefix);
         createFeta(adaptations, fileDirectory, schemaPrefix);
+        System.out.println("done");
     }
 
     private void createFeta(List<com.xml.feta.model.Adaptation> adaptations, String fileDirectory, String schemaPrefix) throws JAXBException, IOException {
