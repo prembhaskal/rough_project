@@ -133,9 +133,9 @@ public class KoalaJaxbParser {
             for (Adaptation.Measurement.PhysicalCounters.Counter koalaCounter : koalaMeas.getPhysicalCounters().getCounter()) {
                 Counter counter = new Counter();
                 counter.setID(koalaCounter.getID());
-                counter.setColName(koalaCounter.getOMeSName());
-                counter.setTimeFormula(getTimeRawFormula(koalaCounter));//.substring(0, 3));
-                counter.setNwFormula(getObjRawFormula(koalaCounter));//.substring(0, 3));
+                counter.setColName(koalaCounter.getID());
+                counter.setTimeFormula(getTimeRawFormula(koalaCounter));
+                counter.setNwFormula(getObjRawFormula(koalaCounter));
                 counter.setUnit(koalaCounter.getUnit());
                 counter.setNeName(koalaCounter.getNEName());
                 System.out.println("unit " + koalaCounter.getUnit());
