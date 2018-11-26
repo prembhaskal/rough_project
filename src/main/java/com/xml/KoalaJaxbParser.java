@@ -114,6 +114,12 @@ public class KoalaJaxbParser {
             aibDetails.setDescription(koalaMeas.getDescription().trim());
             fetaAdap.setAIBDetails(aibDetails);
 
+            AoMDetails aoMDetails = new AoMDetails();
+            aoMDetails.setMeasurementID(1);
+            aoMDetails.setDefaultMeasurementInterval("15 mins");
+            aoMDetails.setSupportedIntervals("15 mins");
+            fetaAdap.setAoMDetails(aoMDetails);
+
             fetaAdap.setRawDetails(getRawDetails(schemaPrefix, koalaMeas.getID(), topoLevels.get(0)));
 
             SummaryDetails summaryDetails = getSummaryDetails(schemaPrefix, koalaMeas.getID(), timeLevels, topoLevels);
